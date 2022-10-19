@@ -13,13 +13,6 @@ function App() {
       }
      }  
 
-
-    // useEffect(() => {
-    //     UpdateTaskList([<TaskItem data='Tarefa Inicial' visible={true}/>],)
-
-    // }, [])
-
-
   return (
 <>
 <div className='MainBox'>
