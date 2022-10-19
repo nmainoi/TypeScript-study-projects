@@ -1,0 +1,7 @@
+{
+    "explorer.expandSingleFolderWorkspaces": true,
+    "explorer.fileNesting.expand": false,
+    "editor.suggest.showFolders": true,
+    "explorer.compactFolders": false,
+    "npm.enableRunFromFolder": true
+}
