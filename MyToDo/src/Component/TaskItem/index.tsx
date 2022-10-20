@@ -1,16 +1,12 @@
-import { FC, useState } from 'react'
-
-interface ListProps {
-    data: string
-}
-
-export const TaskItem: FC<ListProps> = ({ data }) => {
-    const [isVisible, updateIsVisible] = useState(true)
-
-    return (<>
-        {isVisible ?
-            <li><input type="checkbox" /> {data} <button onClick={() => updateIsVisible(false)}>Del</button></li>
-            : <div></div>}
-    </>)
-}
-
+interface TaskItemProps {
+    task: string,
+    onDelete: () => void
+  }
+  
+  export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete }) => {
+    return <li>
+      <input type="checkbox" /> 
+      <span>{task}</span>    
+      <button onClick={onDelete}>Del</button>
+    </li> 
+  }

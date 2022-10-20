@@ -1,37 +1,43 @@
-import { useState,useEffect } from 'react'
+import { useRef, useState  } from 'react'
 import {TaskItem} from './Component/TaskItem'
-import './App.css'
-
-
 
 function App() {
-  let NewTaskDescription:string = '';
-    const [TaskList, UpdateTaskList] = useState<any[]>([])
-    const AddItem = (x:string) => {
-      if(x !== '' ){
-        UpdateTaskList([<TaskItem data={x}/>, TaskList])
-      }
-     }  
+  const newTaskInputRef = useRef<HTMLInputElement>(null)
+  const [taskList, setTaskList] = useState<string[]>([])
+
+  const addItem = () => {
+    const newTaskDescription = newTaskInputRef.current?.value
+    if(newTaskDescription && !taskList.includes(newTaskDescription)){
+      setTaskList((currList) => [newTaskDescription, ...currList])
+    }
+  }
+
+  const deleteTask = (task: string) => {
+    setTaskList(curr => curr.filter(x => x != task))
+  }
 
   return (
-<>
-<div className='MainBox'>
+    <>
+      <div className='MainBox'>
+        <div className="inputArea">
+          <input type='text' ref={newTaskInputRef} />
+          <button onClick={addItem}>TO DO</button>
+        </div>
 
-    <div className="inputArea">
-      <input type='text' onChange={(e) => NewTaskDescription = e.target.value}></input>
-      <button onClick={(x) => AddItem(NewTaskDescription)}>TO DO</button>
-    </div>
-
-    <div className="taskArea">
-      <ul>
-      {TaskList}
-      </ul>
-    </div>
-
-</div>
-
-
-</>
+        <div className="taskArea">
+          <ul>
+          {
+            taskList.map((task) => {
+              return <TaskItem key={task} 
+                task={task} 
+                onDelete={() => deleteTask(task)} 
+              />
+            })
+          }
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }
 
